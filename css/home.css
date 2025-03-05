@@ -1,0 +1,36 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.card {
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.nav-link {
+    padding: 10px 0;
+}
+
+.nav-link:hover {
+    background-color: #495057;
+    border-radius: 5px;
+}
+
+.bi {
+    font-size: 1.2rem;
+}
+
+.sidebar {
+    background-color: #223b23 !important;
+}
+
+.logo {
+    max-width: 100%;
+    height: auto;
+    filter: brightness(1.2);
+}
