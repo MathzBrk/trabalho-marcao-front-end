@@ -1,0 +1,47 @@
+.imagem-usuario {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%; 
+    display: block; 
+    margin: 0 auto; 
+    object-fit: cover; 
+}
+.minha-cor{
+    background-color: #18de18;
+    border-color: #18de18; 
+    color: white; 
+    font-weight: bold
+}
+h1 {
+    text-align: center;
+}
+.form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    height: 67vh; 
+}
+
+.form-group {
+    width: 100%;
+    max-width: 400px; 
+    margin-bottom: 15px; 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
