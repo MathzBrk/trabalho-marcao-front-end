@@ -1,29 +1,36 @@
-
 document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', (e) => {
+    link.addEventListener('click', async (e) => {
         e.preventDefault();
 
         document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-
         link.classList.add('active');
-        
 
-        const menuText = link.querySelector('span').textContent;
-        updateContent(menuText);
+        const menuText = link.querySelector('span').textContent.trim();
+        const page = link.getAttribute('data-page');
+
+        updateContent(page, menuText);
     });
 });
 
-function updateContent(menuItem) {
+async function updateContent(page, menuItem) {
     const contentDiv = document.getElementById('content');
-    
-    contentDiv.innerHTML = `
-        <h2>${menuItem}</h2>
-        <div class="alert alert-info mt-3">
-            Conteúdo da seção ${menuItem} será carregado aqui.
-        </div>
-    `;
+
+    try {
+        const response = await fetch(`${page}.html`);
+        const html = await response.text();
+        
+        contentDiv.innerHTML = html;
+    } catch (error) {
+        contentDiv.innerHTML = `
+            <h2>${menuItem}</h2>
+            <div class="alert alert-danger mt-3">
+                Erro ao carregar a seção ${menuItem}.
+            </div>
+        `;
+    }
 }
 
+// Dropdown Toggle
 document.addEventListener('DOMContentLoaded', function() {
     const dropdownElementList = document.querySelectorAll('.dropdown-toggle');
     dropdownElementList.forEach(dropdown => {
