@@ -8,7 +8,9 @@ document.querySelectorAll('.nav-link').forEach(link => {
         const menuText = link.querySelector('span').textContent.trim();
         const page = link.getAttribute('data-page');
 
-        updateContent(page, menuText);
+        if (page) {
+            await updateContent(page, menuText);
+        }
     });
 });
 
@@ -17,9 +19,13 @@ async function updateContent(page, menuItem) {
 
     try {
         const response = await fetch(`${page}.html`);
+        if (!response.ok) throw new Error(`Erro ao carregar ${page}.html`);
+
         const html = await response.text();
-        
         contentDiv.innerHTML = html;
+
+        executeScripts(contentDiv);
+
     } catch (error) {
         contentDiv.innerHTML = `
             <h2>${menuItem}</h2>
@@ -30,7 +36,23 @@ async function updateContent(page, menuItem) {
     }
 }
 
-// Dropdown Toggle
+function executeScripts(container) {
+    const scripts = container.querySelectorAll("script");
+
+    scripts.forEach(oldScript => {
+        const newScript = document.createElement("script");
+
+        if (oldScript.src) {
+            newScript.src = oldScript.src;
+            newScript.async = true;
+        } else {
+            newScript.textContent = oldScript.textContent;
+        }
+
+        oldScript.parentNode.replaceChild(newScript, oldScript);
+    });
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const dropdownElementList = document.querySelectorAll('.dropdown-toggle');
     dropdownElementList.forEach(dropdown => {
