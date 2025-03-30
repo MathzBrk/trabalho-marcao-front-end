@@ -1,5 +1,5 @@
 const vacinas = ["Covid-19", "Gripe", "Hepatite B", "Febre Amarela", "Sarampo"];
-const funcionarios = ["João Silva", "Maria Oliveira", "Carlos Santos", "Ana Souza"];
+const funcionarios = ["Matheus", "Matheus Borge", "Sergio Rodrigues", "Wesley Sanches"];
 
 const selectVacinas = document.getElementById("vacinas");
 const selectFuncionarios = document.getElementById("funcionarios");
