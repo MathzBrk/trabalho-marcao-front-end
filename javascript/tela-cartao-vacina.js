@@ -1,35 +1,26 @@
-const formulario = document.getElementById("form");
+document.addEventListener("DOMContentLoaded", function() {
+    const obterHistoricoVacinas = () => {
+        return [
+            { nomeVacina: "Vacina A", dataAplicacao: "15/02/2025", localAplicacao: "Posto Central" },
+            { nomeVacina: "Vacina B", dataAplicacao: "10/03/2025", localAplicacao: "Posto Norte" }
+        ];
+    };
 
-formulario.addEventListener("submit", function(event) {
-    event.preventDefault();
+    const preencherTabelaVacinas = (vacinas) => {
+        const tbody = document.querySelector("tbody");
+        tbody.innerHTML = "";
 
-    const cpfinput = document.getElementById("validationDefault02");
-    const dataInput = document.getElementById("validationDefault04");
+        vacinas.forEach(vacina => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${vacina.nomeVacina}</td>
+                <td>${vacina.dataAplicacao}</td>
+                <td>${vacina.localAplicacao}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    };
 
-    const cpf = cpfinput.value;
-    const data = dataInput.value;
-
-    const regexCPF = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
-    const regexData = /^\d{2}\/\d{2}\/\d{4}$/;
-
-    function validarCPF(cpf) {
-        return regexCPF.test(cpf);
-    }
-
-    function validarData(data) {
-        return regexData.test(data);
-    }
-
-    if (!validarCPF(cpf)) {
-        alert('Erro: CPF inválido! Certifique-se de usar o formato xxx.xxx.xxx-xx.');
-        return;
-    }
-
-    if (!validarData(data)) {
-        alert('Erro: Data inválida! Certifique-se de usar o formato dd/mm/yyyy.');
-        return;
-    }
-
-    alert('Formulário enviado com sucesso!');
-    formulario.submit();
+    const vacinas = obterHistoricoVacinas();
+    preencherTabelaVacinas(vacinas);
 });
