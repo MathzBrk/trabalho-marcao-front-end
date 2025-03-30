@@ -12,55 +12,57 @@
     </div>
       <!--formulario tipos de vacinas-->
       <div class="container-fluid shadow p-3 mb-5 bg-body-tertiary rounded" style="max-width: 900px; width: 100%; padding: 30px;">
-          <form class="mx-auto p-2 d" style="max-width: 800px; width: 100%;">
-            <div class="mb-3">
-                <label for="nomeDaVacina" class="form-label">Nome da Vacina</label>
-                <input type="text" class="form-control" id="nomeDaVacina" aria-describedby="nomeDaVacina">
-              </div>
-              <div class="mb-3">
-                  <label for="tiposDeVacina" class="form-label">Tipos de Vacina</label>
-                  <select class="form-select" aria-label="Default select example">
-                      <option selected>Escolher tipo de Vacina</option>
-                      <option value="1">Vacina de vírus inativado</option>
-                      <option value="2">Vacina de RNA mensageiro</option>
-                      <option value="3">Vacina de vetor viral</option>
-                      <option value="4">Outro</option>
-                  </select>
-              </div>
-              <div class="mb-3">
-                  <label for="fabricante" class="form-label">Fabricante</label>
-                  <input type="text" class="form-control" id="fabricante" aria-describedby="fabricante">
-              </div>
-              <div class="mb-3">
-                <label for="numeroDoses" class="form-label">Numero de Doses</label>
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>Escolher quantidade de doses</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">Mais</option>
-                </select>
-              </div>
-              <div class="mb-3">
-                <label for="intervaloDoses" class="form-label">Intervalo entre as doses (Dias)</label>
-                <input type="number" class="form-control" id="intervaloDoses" aria-describedby="intervaloDoses">
-                <div id="intervaloDoses" class="form-text"></div>
-              </div>
-              <div class="mb-3">
-                <label for="efeitosColaterais" class="form-label">Efeitos Colaterais</label>
-                <input type="text" class="form-control" id="efeitosColaterais" aria-describedby="efeitosColaterais">
-                <div id="efeitosColaterais" class="form-text"></div>
-              </div>
-              <div class="mb-3">
-                <label for="recomendacoes" class="form-label">Recomendações especificas</label>
-                <input type="text" class="form-control" id="recomendacoes" aria-describedby="recomendacoes">
-                <div id="recomendacoes" class="form-text"></div>
-              </div>
-              <div class="d-flex">  
-                <button type="submit" class="btn btn-primary btn-success ms-auto">Cadastrar Vacina</button>
-              </div>
-          </form>
+        <form class="mx-auto p-2 d" style="max-width: 800px; width: 100%;" id="form-vacina">
+          <div class="mb-3">
+              <label for="nomeDaVacina" class="form-label">Nome da Vacina</label>
+              <input type="text" class="form-control" id="nomeDaVacina" required aria-describedby="nomeDaVacina">
+          </div>
+          <div class="mb-3">
+              <label for="tiposDeVacina" class="form-label">Tipos de Vacina</label>
+              <select class="form-select" id="tiposDeVacina" required aria-label="Default select example">
+                  <option selected>Escolher tipo de Vacina</option>
+                  <option value="1">Vacina de vírus inativado</option>
+                  <option value="2">Vacina de RNA mensageiro</option>
+                  <option value="3">Vacina de vetor viral</option>
+                  <option value="4">Outro</option>
+              </select>
+          </div>
+          <div class="mb-3">
+              <label for="fabricante" class="form-label">Fabricante</label>
+              <input type="text" class="form-control" id="fabricante" required aria-describedby="fabricante">
+          </div>
+          <div class="mb-3">
+              <label for="numeroDoses" class="form-label">Número de Doses</label>
+              <select class="form-select" id="numeroDoses" required aria-label="Default select example">
+                  <option selected>Escolher quantidade de doses</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">Mais</option>
+              </select>
+          </div>
+          <div class="mb-3">
+              <label for="intervaloDoses" class="form-label">Intervalo entre as doses (Dias)</label>
+              <input type="number" class="form-control" id="intervaloDoses" required min="1" aria-describedby="intervaloDoses">
+              <div id="intervaloDoses" class="form-text">Informe o intervalo em dias.</div>
+          </div>
+          <div class="mb-3">
+              <label for="efeitosColaterais" class="form-label">Efeitos Colaterais</label>
+              <input type="text" class="form-control" id="efeitosColaterais" aria-describedby="efeitosColaterais">
+              <div id="efeitosColaterais" class="form-text">Informe os efeitos colaterais conhecidos, se houver.</div>
+          </div>
+          <div class="mb-3">
+              <label for="recomendacoes" class="form-label">Recomendações Específicas</label>
+              <input type="text" class="form-control" id="recomendacoes" aria-describedby="recomendacoes">
+              <div id="recomendacoes" class="form-text">Informe recomendações específicas, se houver.</div>
+          </div>
+          <div class="d-flex">
+              <button type="submit" class="btn btn-primary btn-success ms-auto">Cadastrar Vacina</button>
+          </div>
+      </form>
+      
         </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="../javascript/validacao-vacina.js"></script>
   </body>
 </html>

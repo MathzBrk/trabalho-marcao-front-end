@@ -14,18 +14,18 @@
     </div>
     <div class="container-fluid shadow p-3 mb-5 bg-body-tertiary rounded" style="max-width: 900px; width: 100%; padding: 10px;">
         <!--cadastro de usuario-->
-        <form class="form-container" style="margin-top: 10px; margin-bottom: 10px;">
+        <form class="form-container" style="margin-top: 10px; margin-bottom: 10px;" id="form-vacinacao">
             <div class="form-group">
-                <label for="validationDefault01" class="form-label">Funcionario vacinado:</label>
-                <input type="text" class="form-control" id="funcionario-vacinado" value="" required>
+                <label for="validationDefault01" class="form-label">CPF do Funcionario vacinado:</label>
+                <input type="text" class="form-control" id="funcionario-vacinado" placeholder="Digite o CPF">
             </div>
             <div class="form-group">
-                <label for="validationDefault02" class="form-label">Funcionario Responsavel:</label>
-                <input type="text" class="form-control" id="funcionario-responsavel" value="" required>
+                <label for="validationDefault02" class="form-label">CPF do Funcionario Responsavel:</label>
+                <input type="text" class="form-control" id="funcionario-responsavel" placeholder="Digite o CPF">
             </div>
             <div class="form-group">
                 <label for="validationDefaultCPF" class="form-label">Data de aplicação:</label>
-                <input type="text" class="form-control" id="data-aplicacao" value="" required>
+                <input type="date" class="form-control" id="data-aplicacao" required>
             </div>
             <div class="form-group">
                 <label for="validationDefault03" class="form-label">Tipo de vacina:</label>
@@ -40,7 +40,9 @@
             <div class="form-group d-flex">
                 <button class="btn btn-primary btn-success ms-auto" type="submit">Enviar formulário</button>
             </div>
-        </div>
         </form>
+
+        <script src="../javascript/validacao-cadastro-aplicacao.js"></script>
+        
     </body>
     </html>
