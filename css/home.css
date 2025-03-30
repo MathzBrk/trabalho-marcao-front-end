@@ -34,3 +34,21 @@ body {
     height: auto;
     filter: brightness(1.2);
 }
+
+body {
+    overflow-x: hidden; /* Impede a barra de rolagem horizontal */
+}
+
+.container-fluid {
+    max-width: 100%; /* Garante que a largura não ultrapasse a tela */
+    padding: 0;
+}
+
+.form-container {
+    max-width: 100%; /* Garante que o formulário se ajuste ao tamanho da tela */
+}
+
+.container {
+    padding: 0 15px; /* Ajusta o padding para não ultrapassar a largura */
+}
+
