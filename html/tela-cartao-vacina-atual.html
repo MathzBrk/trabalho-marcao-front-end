@@ -13,22 +13,26 @@
 
    <div class="container-fluid shadow p-3 mb-5 bg-body-tertiary rounded" style="max-width: 900px; width: 100%; padding: 10px;">
      
-       <form class="form-container" style="margin-top: 10px; margin-bottom: 10px;">
+       <form class="form-container" style="margin-top: 10px; margin-bottom: 10px;" id="form">
            <div class="form-group">
                <label for="validationDefault01" class="form-label">Nome do Funcionário:</label>
                <input type="text" class="form-control" id="validationDefault01" required>
            </div>
            <div class="form-group">
+            <label for="validationDefault02" class="form-label">Cpf do funcionário:</label>
+            <input type="text" class="form-control" id="validationDefault02" value="" required>
+        </div>        
+           <div class="form-group">
                <label for="validationDefault02" class="form-label">Nome da Vacina:</label>
-               <input type="text" class="form-control" id="validationDefault02" required>
+               <input type="text" class="form-control" id="validationDefault03" required>
            </div>
            <div class="form-group">
                <label for="validationDefault03" class="form-label">Data de Aplicação:</label>
-               <input type="text" class="form-control" id="validationDefault03" value="" required>
+               <input type="text" class="form-control" id="validationDefault04" value="" required>
            </div>
            <div class="form-group">
                <label for="validationDefault04" class="form-label">Local de Aplicação:</label>
-               <input type="text" class="form-control" id="validationDefault04" required>
+               <input type="text" class="form-control" id="validationDefault05" required>
            </div>
            <div class="form-group form-check">
                <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
@@ -37,9 +41,10 @@
                </label>
            </div>
            <div class="form-group d-flex">
-               <button class="btn btn-primary btn-success ms-auto" type="submit">Enviar formulário</button>
+               <button class="btn btn-primary btn-success ms-auto" type="submit" id="button">Enviar formulário</button>
            </div>
        </form>
+       <script src="../javascript/tela-cartao-vacina.js"></script>
    </div>
 </body>
 </html>

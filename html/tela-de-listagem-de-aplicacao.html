@@ -8,39 +8,37 @@
     <link rel="stylesheet" href="../css/cadastroFuncionarios.css">
 </head>
 <body>
-    <!--Cadastrar funcionario-->
     <div class="container" style="margin-top: 30px; margin-bottom: 50px;">
         <h1 class="titulo-cadastrar">Registrar Aplicação</h1>
     </div>
     <div class="container-fluid shadow p-3 mb-5 bg-body-tertiary rounded" style="max-width: 900px; width: 100%; padding: 10px;">
-        <!--cadastro de usuario-->
-        <form class="form-container" style="margin-top: 10px; margin-bottom: 10px;">
+        <form class="form-container" style="margin-top: 10px; margin-bottom: 10px;" action="#" method="POST">
             <div class="form-group">
-                <label for="validationDefault01" class="form-label">Funcionario vacinado:</label>
-                <input type="text" class="form-control" id="funcionario-vacinado" value="" required>
+                <label for="funcionario-vacinado" class="form-label">Funcionario vacinado:</label>
+                <input type="text" class="form-control" id="funcionario-vacinado" required>
             </div>
             <div class="form-group">
-                <label for="validationDefault02" class="form-label">Funcionario Responsavel:</label>
-                <input type="text" class="form-control" id="funcionario-responsavel" value="" required>
+                <label for="funcionario-responsavel" class="form-label">Funcionario Responsável:</label>
+                <input type="text" class="form-control" id="funcionario-responsavel" required>
             </div>
             <div class="form-group">
-                <label for="validationDefaultCPF" class="form-label">Data de aplicação:</label>
-                <input type="text" class="form-control" id="data-aplicacao" value="" required>
+                <label for="data-aplicacao" class="form-label">Data de aplicação:</label>
+                <input type="date" class="form-control" id="data-aplicacao" required>
             </div>
             <div class="form-group">
-                <label for="validationDefault03" class="form-label">Tipo de vacina:</label>
+                <label for="tipo-vacina" class="form-label">Tipo de vacina:</label>
                 <input type="text" class="form-control" id="tipo-vacina" required>
             </div>
             <div class="form-group form-check">
-                <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
-                <label class="form-check-label" for="invalidCheck2">
-                    Concordar com os termos e condições
+                <input class="form-check-input" type="checkbox" value="" id="termos-condicoes" required>
+                <label class="form-check-label" for="termos-condicoes">
+                    Concordo com os termos e condições
                 </label>
             </div>
             <div class="form-group d-flex">
                 <button class="btn btn-primary btn-success ms-auto" type="submit">Enviar formulário</button>
             </div>
-        </div>
         </form>
-    </body>
-    </html>
+    </div>
+</body>
+</html>
