@@ -53,7 +53,39 @@ function excluir(id) {
     alert("Erro ao excluir funcionário.");
   });
 }
+function atualizarNomeFuncionario(funcionario) {
+  const novoNome = prompt("Digite o novo nome completo:", funcionario.nome);
 
+  if (novoNome && novoNome.trim() !== "") {
+    const dadosAtualizados = {
+      ...funcionario,
+      nome: novoNome.toUpperCase()
+    };
+
+    console.log("Enviando para atualização:", dadosAtualizados);
+
+    fetch(`http://localhost:3000/funcionarios/${funcionario.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(dadosAtualizados)
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Erro ao atualizar o funcionário.");
+      }
+      alert("Nome atualizado com sucesso!");
+      renderizarTabela();
+    })
+    .catch(error => {
+      console.error("Erro ao atualizar funcionário:", error);
+      alert("Erro ao atualizar funcionário.");
+    });
+  } else {
+    alert("Nome inválido. A atualização foi cancelada.");
+  }
+}
 
 function renderizarTabela(listaFiltrada = null) {
 
@@ -64,7 +96,6 @@ function renderizarTabela(listaFiltrada = null) {
   fetch("http://localhost:3000/funcionarios")
     .then(response => response.json())
     .then(data => {
-      const tbody = document.getElementById('tabela-funcionarios');
       tbody.innerHTML = "";
 
       const lista = listaFiltrada || data;
@@ -85,11 +116,17 @@ function renderizarTabela(listaFiltrada = null) {
         const tdAcoes = document.createElement('td');
         tdAcoes.classList.add('text-center');
 
+        const btnAtualizar = document.createElement('button');
+        btnAtualizar.classList.add('btn', 'btn-warning', 'ms-2')
+        btnAtualizar.innerHTML = '<i class="bi bi-pencil-square"></i>';
+        btnAtualizar.addEventListener("click", () => atualizarNomeFuncionario(funcionario));
+
         const btnExcluir = document.createElement('button');
         btnExcluir.classList.add('btn', 'btn-danger', 'ms-2');
         btnExcluir.innerHTML = '<i class="bi bi-trash"></i>';
         btnExcluir.addEventListener("click", () => excluir(funcionario.id));
-
+        
+        tdAcoes.appendChild(btnAtualizar);
         tdAcoes.appendChild(btnExcluir);
 
         tr.appendChild(thId);

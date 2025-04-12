@@ -1,5 +1,39 @@
 {
   "funcionarios": [
-    
+    {
+      "id": "1",
+      "nome": "TESTE",
+      "cpf": "123.456.789-00",
+      "cidade": "São Paulo",
+      "telefone": "(11) 91234-5678"
+    },
+    {
+      "id": "2",
+      "nome": "BRUNO OLIVEIRA",
+      "cpf": "987.654.321-00",
+      "cidade": "Rio de Janeiro",
+      "telefone": "(21) 99876-5432"
+    },
+    {
+      "id": "3",
+      "nome": "CARLA SANTOS",
+      "cpf": "456.789.123-00",
+      "cidade": "Belo Horizonte",
+      "telefone": "(31) 93456-7890"
+    },
+    {
+      "id": "4",
+      "nome": "DANIEL COSTA",
+      "cpf": "321.654.987-00",
+      "cidade": "Curitiba",
+      "telefone": "(41) 94567-3210"
+    },
+    {
+      "id": "5",
+      "nome": "ELAINE MORAES",
+      "cpf": "741.852.963-00",
+      "cidade": "Salvador",
+      "telefone": "(71) 98765-4321"
+    }
   ]
 }
