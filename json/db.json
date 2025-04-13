@@ -58,5 +58,27 @@
       "funcionarioResponsavelId": "2",
       "dataRegistro": "2025-04-13"
     }
+  ],
+  "vacinas": [
+    {
+      "id": "cc81",
+      "nome": "TESTE3",
+      "tipo": "Vacina de vetor viral",
+      "fabricante": "teste3",
+      "numeroDoses": 3,
+      "intervaloDoses": 30,
+      "efeitosColaterais": "teste3",
+      "recomendacoes": "teste3"
+    },
+    {
+      "id": "2c8a",
+      "nome": "TESTE2",
+      "tipo": "Vacina de RNA mensageiro",
+      "fabricante": "teste2",
+      "numeroDoses": 2,
+      "intervaloDoses": 2,
+      "efeitosColaterais": "teste2",
+      "recomendacoes": "teste2"
+    }
   ]
 }
