@@ -49,5 +49,14 @@
       "funcionarioId": "2",
       "dataAgendada": "2025-04-23"
     }
+  ],
+  "registros": [
+    {
+      "id": "4c86",
+      "vacina": "Hepatite B",
+      "funcionarioVacinadoId": "1",
+      "funcionarioResponsavelId": "2",
+      "dataRegistro": "2025-04-13"
+    }
   ]
 }
