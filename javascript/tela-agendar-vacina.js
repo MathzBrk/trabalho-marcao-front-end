@@ -1,5 +1,3 @@
-const vacinas = ["Covid-19", "Gripe", "Hepatite B", "Febre Amarela", "Sarampo"];
-
 window.onload = () => {
   carregarFuncionarios();
   carregarVacinas();
@@ -11,12 +9,19 @@ window.onload = () => {
 function carregarVacinas() {
   const selectVacinas = document.getElementById("vacinas");
 
-  vacinas.forEach(vacina => {
-    const option = document.createElement("option");
-    option.value = vacina;
-    option.textContent = vacina;
-    selectVacinas.appendChild(option);
-  });
+  fetch("http://localhost:3000/vacinas")
+    .then(response => response.json())
+    .then(data => {
+      data.forEach(vacina => {
+        const option = document.createElement("option");
+        option.value = vacina.id || vacina.nome; // Use `vacina.nome` se não tiver `id`
+        option.textContent = vacina.nome;
+        selectVacinas.appendChild(option);
+      });
+    })
+    .catch(error => {
+      console.error("Erro ao carregar vacinas:", error);
+    });
 }
 
 // carrega os funcionarios no select

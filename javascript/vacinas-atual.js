@@ -10,19 +10,25 @@ window.onload = () => {
 
 inputData.addEventListener("change", carregarVacinas);
 
+function obterNomeVacina(vacinaId, vacinas) {
+  const encontrada = vacinas.find(v => v.id === vacinaId);
+  return encontrada ? encontrada.nome : vacinaId;
+}
+
 function carregarVacinas() {
   const dataSelecionada = inputData.value;
 
   Promise.all([
     fetch("http://localhost:3000/registros").then(res => res.json()),
     fetch("http://localhost:3000/funcionarios").then(res => res.json()),
-    fetch("http://localhost:3000/agendamentos").then(res => res.json())
+    fetch("http://localhost:3000/agendamentos").then(res => res.json()),
+    fetch("http://localhost:3000/vacinas").then(res => res.json())
   ])
-    .then(([registros, funcionarios, agendamentos]) => {
-      // Limpar tabela
+    .then(([registros, funcionarios, agendamentos, vacinas]) => {
+      // limpar tabela
       tabelaVacinas.innerHTML = "";
 
-      // Filtrar registros
+      // Filtrar por data
       const registrosFiltrados = registros.filter(r => r.dataRegistro === dataSelecionada);
       const agendamentosFiltrados = agendamentos.filter(a => a.dataAgendada === dataSelecionada);
 
@@ -31,13 +37,14 @@ function carregarVacinas() {
         return;
       }
 
-      // Mostrar registros (vacinas aplicadas)
+      // mostrar vacinas aplicadas (registros)
       registrosFiltrados.forEach(registro => {
         const vacinado = funcionarios.find(f => f.id == registro.funcionarioVacinadoId);
         const nomeVacinado = vacinado ? vacinado.nome : "Desconhecido";
+        const nomeVacina = obterNomeVacina(registro.vacina, vacinas);
 
         const row = `<tr>
-          <td>${registro.vacina}</td>
+          <td>${nomeVacina}</td>
           <td>${nomeVacinado}</td>
           <td>${registro.dataRegistro} (Aplicada)</td>
         </tr>`;
@@ -45,13 +52,14 @@ function carregarVacinas() {
         tabelaVacinas.innerHTML += row;
       });
 
-      // Mostrar agendamentos (vacinas agendadas)
+      // mostrar vacinas agendadas
       agendamentosFiltrados.forEach(agendamento => {
         const funcionario = funcionarios.find(f => f.id == agendamento.funcionarioId);
         const nomeFuncionario = funcionario ? funcionario.nome : "Desconhecido";
+        const nomeVacina = obterNomeVacina(agendamento.vacina, vacinas);
 
         const row = `<tr>
-          <td>${agendamento.vacina}</td>
+          <td>${nomeVacina}</td>
           <td>${nomeFuncionario}</td>
           <td>${agendamento.dataAgendada} (Agendada)</td>
         </tr>`;

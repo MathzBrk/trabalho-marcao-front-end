@@ -38,57 +38,13 @@
   ],
   "agendamentos": [
     {
-      "id": "9e38",
-      "vacina": "Gripe",
+      "id": "1394",
+      "vacina": "fa33",
       "funcionarioId": "1",
-      "dataAgendada": "2025-04-24"
-    },
-    {
-      "id": "441f",
-      "vacina": "Hepatite B",
-      "funcionarioId": "2",
-      "dataAgendada": "2025-04-23"
-    },
-    {
-      "id": "4c9f",
-      "vacina": "Gripe",
-      "funcionarioId": "1",
-      "dataAgendada": "2025-04-16"
-    },
-    {
-      "id": "9f5e",
-      "vacina": "Covid-19",
-      "funcionarioId": "3",
-      "dataAgendada": "2025-04-16"
-    },
-    {
-      "id": "c65c",
-      "vacina": "Febre Amarela",
-      "funcionarioId": "5",
-      "dataAgendada": "2025-04-14"
-    },
-    {
-      "id": "5cad",
-      "vacina": "Covid-19",
-      "funcionarioId": "4",
-      "dataAgendada": "2025-04-30"
-    },
-    {
-      "id": "bd5d",
-      "vacina": "Covid-19",
-      "funcionarioId": "5",
       "dataAgendada": "2025-04-17"
     }
   ],
-  "registros": [
-    {
-      "id": "4c86",
-      "vacina": "Hepatite B",
-      "funcionarioVacinadoId": "1",
-      "funcionarioResponsavelId": "2",
-      "dataRegistro": "2025-04-13"
-    }
-  ],
+  "registros": [],
   "vacinas": [
     {
       "id": "cc81",
