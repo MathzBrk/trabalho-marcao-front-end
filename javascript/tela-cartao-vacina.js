@@ -1,26 +1,63 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const obterHistoricoVacinas = () => {
-        return [
-            { nomeVacina: "Vacina A", dataAplicacao: "15/02/2025", localAplicacao: "Posto Central" },
-            { nomeVacina: "Vacina B", dataAplicacao: "10/03/2025", localAplicacao: "Posto Norte" }
-        ];
-    };
+document.addEventListener("DOMContentLoaded", function () {
+  const preencherTabelaVacinas = (registros) => {
+      const tbody = document.querySelector("tbody");
+      tbody.innerHTML = "";
 
-    const preencherTabelaVacinas = (vacinas) => {
-        const tbody = document.querySelector("tbody");
-        tbody.innerHTML = "";
+      if (registros.length === 0) {
+          tbody.innerHTML = "<tr><td colspan='4'>Nenhum registro ou agendamento encontrado.</td></tr>";
+          return;
+      }
 
-        vacinas.forEach(vacina => {
-            const tr = document.createElement("tr");
-            tr.innerHTML = `
-                <td>${vacina.nomeVacina}</td>
-                <td>${vacina.dataAplicacao}</td>
-                <td>${vacina.localAplicacao}</td>
-            `;
-            tbody.appendChild(tr);
-        });
-    };
+      registros.forEach(registro => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+              <td>${registro.nomeVacina}${registro.status ? ` (${registro.status})` : ''}</td>
+              <td>${registro.nomePaciente}</td>
+              <td>${registro.data}</td> <!-- Usar o campo 'data' corretamente -->
+              <td>${registro.localAplicacao !== undefined && registro.localAplicacao !== null ? registro.localAplicacao : '—'}</td> <!-- Verifica undefined ou null -->
+          `;
+          tbody.appendChild(tr);
+      });
+  };
 
-    const vacinas = obterHistoricoVacinas();
-    preencherTabelaVacinas(vacinas);
+  // Carregar os dados
+  Promise.all([
+      fetch("http://localhost:3000/registros").then(res => res.json()),
+      fetch("http://localhost:3000/funcionarios").then(res => res.json()),
+      fetch("http://localhost:3000/agendamentos").then(res => res.json())
+  ])
+      .then(([registros, funcionarios, agendamentos]) => {
+          // Mapear os registros com os nomes dos vacinados
+          const registrosComNomes = registros.map(registro => {
+              const paciente = funcionarios.find(f => f.id === registro.funcionarioVacinadoId);
+              return {
+                  nomeVacina: registro.vacina,
+                  nomePaciente: paciente ? paciente.nome : "Desconhecido",
+                  data: registro.dataRegistro, // Corrigir para usar 'dataRegistro' da vacina aplicada
+                  localAplicacao: registro.localAplicacao,
+                  status: null // Indica que é uma vacina aplicada
+              };
+          });
+
+          // Mapear os agendamentos com os nomes dos funcionários
+          const agendamentosComNomes = agendamentos.map(agendamento => {
+              const paciente = funcionarios.find(f => f.id === agendamento.funcionarioId);
+              return {
+                  nomeVacina: agendamento.vacina,
+                  nomePaciente: paciente ? paciente.nome : "Desconhecido",
+                  data: agendamento.dataAgendada, // Usar a data agendada para o agendamento
+                  localAplicacao: null, // No agendamento, a aplicação ainda não ocorreu
+                  status: "Agendada"
+              };
+          });
+
+          // Combinar e preencher a tabela com registros e agendamentos
+          const historicoCompleto = [...registrosComNomes, ...agendamentosComNomes].sort((a, b) => new Date(b.data) - new Date(a.data));
+          preencherTabelaVacinas(historicoCompleto);
+      })
+      .catch(error => {
+          console.error("Erro ao carregar histórico de vacinas e agendamentos:", error);
+          const tbody = document.querySelector("tbody");
+          tbody.innerHTML = "<tr><td colspan='4'>Erro ao carregar dados</td></tr>";
+      });
 });
