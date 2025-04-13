@@ -35,5 +35,19 @@
       "cidade": "Salvador",
       "telefone": "(71) 98765-4321"
     }
+  ],
+  "agendamentos": [
+    {
+      "id": "9e38",
+      "vacina": "Gripe",
+      "funcionarioId": "1",
+      "dataAgendada": "2025-04-24"
+    },
+    {
+      "id": "441f",
+      "vacina": "Hepatite B",
+      "funcionarioId": "2",
+      "dataAgendada": "2025-04-23"
+    }
   ]
 }
