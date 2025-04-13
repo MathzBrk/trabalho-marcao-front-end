@@ -1,32 +1,66 @@
-const vacinas = [
-    { nome: "COVID-19", paciente: "João Silva", data: "2025-03-30" },
-    { nome: "Febre Amarela", paciente: "Maria Souza", data: "2025-03-29" },
-    { nome: "Hepatite B", paciente: "Carlos Pereira", data: "2025-03-30" },
-    { nome: "Influenza", paciente: "Ana Oliveira", data: "2025-03-31" }
-];
-
 const tabelaVacinas = document.getElementById("listaVacinas");
 const inputData = document.getElementById("dataFiltro");
 
 const hoje = new Date().toISOString().split("T")[0];
 inputData.value = hoje;
 
-function filtrarVacinas() {
-    const dataSelecionada = inputData.value;
-    tabelaVacinas.innerHTML = "";
+window.onload = () => {
+  carregarVacinas();
+};
 
-    vacinas
-        .filter(vacina => vacina.data === dataSelecionada)
-        .forEach(vacina => {
-            const row = `<tr>
-                <td>${vacina.nome}</td>
-                <td>${vacina.paciente}</td>
-                <td>${vacina.data}</td>
-            </tr>`;
-            tabelaVacinas.innerHTML += row;
-        });
+inputData.addEventListener("change", carregarVacinas);
+
+function carregarVacinas() {
+  const dataSelecionada = inputData.value;
+
+  Promise.all([
+    fetch("http://localhost:3000/registros").then(res => res.json()),
+    fetch("http://localhost:3000/funcionarios").then(res => res.json()),
+    fetch("http://localhost:3000/agendamentos").then(res => res.json())
+  ])
+    .then(([registros, funcionarios, agendamentos]) => {
+      // Limpar tabela
+      tabelaVacinas.innerHTML = "";
+
+      // Filtrar registros
+      const registrosFiltrados = registros.filter(r => r.dataRegistro === dataSelecionada);
+      const agendamentosFiltrados = agendamentos.filter(a => a.dataAgendada === dataSelecionada);
+
+      if (registrosFiltrados.length === 0 && agendamentosFiltrados.length === 0) {
+        tabelaVacinas.innerHTML = "<tr><td colspan='3'>Nenhuma vacina encontrada ou agendada para esta data.</td></tr>";
+        return;
+      }
+
+      // Mostrar registros (vacinas aplicadas)
+      registrosFiltrados.forEach(registro => {
+        const vacinado = funcionarios.find(f => f.id == registro.funcionarioVacinadoId);
+        const nomeVacinado = vacinado ? vacinado.nome : "Desconhecido";
+
+        const row = `<tr>
+          <td>${registro.vacina}</td>
+          <td>${nomeVacinado}</td>
+          <td>${registro.dataRegistro} (Aplicada)</td>
+        </tr>`;
+
+        tabelaVacinas.innerHTML += row;
+      });
+
+      // Mostrar agendamentos (vacinas agendadas)
+      agendamentosFiltrados.forEach(agendamento => {
+        const funcionario = funcionarios.find(f => f.id == agendamento.funcionarioId);
+        const nomeFuncionario = funcionario ? funcionario.nome : "Desconhecido";
+
+        const row = `<tr>
+          <td>${agendamento.vacina}</td>
+          <td>${nomeFuncionario}</td>
+          <td>${agendamento.dataAgendada} (Agendada)</td>
+        </tr>`;
+
+        tabelaVacinas.innerHTML += row;
+      });
+    })
+    .catch(error => {
+      console.error("Erro ao carregar vacinas:", error);
+      tabelaVacinas.innerHTML = "<tr><td colspan='3'>Erro ao carregar dados</td></tr>";
+    });
 }
-
-inputData.addEventListener("change", filtrarVacinas);
-
-filtrarVacinas();
