@@ -1,68 +1,42 @@
-document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', async (e) => {
-        const page = link.getAttribute('data-page');
-        
-        if (!page) {
-            return;
-        }
+document.addEventListener("DOMContentLoaded", function () {
+    
+    fetch("http://localhost:3000/funcionarios")
+        .then(response => response.json())
+        .then(funcionarios => {
+            document.getElementById("totalFuncionarios").textContent = funcionarios.length;
 
-        e.preventDefault();
+            
+            fetch("http://localhost:3000/registros")
+                .then(response => response.json())
+                .then(registros => {
+                    document.getElementById("vacinasAplicadas").textContent = registros.length;
 
-        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-        link.classList.add('active');
+                    
+                    const vacinadosIds = [];
+                    registros.forEach(registro => {
+                        if (!vacinadosIds.includes(registro.funcionarioVacinadoId)) {
+                            vacinadosIds.push(registro.funcionarioVacinadoId);
+                        }
+                    });
+                    document.getElementById("funcionariosVacinados").textContent = vacinadosIds.length;
 
-        const menuText = link.querySelector('span').textContent.trim();
+                    
+                    fetch("http://localhost:3000/agendamentos")
+                        .then(response => response.json())
+                        .then(agendamentos => {
+                            document.getElementById("vacinasAgendadas").textContent = agendamentos.length;
+                        })
+                        .catch(error => {
+                            console.error("Erro ao buscar agendamentos:", error);
+                        });
 
-        await updateContent(page, menuText);
-    });
-});
+                })
+                .catch(error => {
+                    console.error("Erro ao buscar registros:", error);
+                });
 
-async function updateContent(page, menuItem) {
-    const contentDiv = document.getElementById('content');
-
-    try {
-        const response = await fetch(`${page}.html`);
-        if (!response.ok) throw new Error(`Erro ao carregar ${page}.html`);
-
-        const html = await response.text();
-        contentDiv.innerHTML = html;
-
-        executeScripts(contentDiv);
-
-    } catch (error) {
-        contentDiv.innerHTML = `
-            <h2>${menuItem}</h2>
-            <div class="alert alert-danger mt-3">
-                Erro ao carregar a seção ${menuItem}.
-            </div>
-        `;
-    }
-}
-
-function executeScripts(container) {
-    const scripts = container.querySelectorAll("script");
-
-    scripts.forEach(oldScript => {
-        const newScript = document.createElement("script");
-
-        if (oldScript.src) {
-            newScript.src = oldScript.src;
-            newScript.async = true;
-        } else {
-            newScript.textContent = oldScript.textContent;
-        }
-
-        oldScript.parentNode.replaceChild(newScript, oldScript);
-    });
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    const dropdownElementList = document.querySelectorAll('.dropdown-toggle');
-    dropdownElementList.forEach(dropdown => {
-        dropdown.addEventListener('click', function(e) {
-            e.preventDefault();
-            const dropdownMenu = this.nextElementSibling;
-            dropdownMenu.classList.toggle('show');
+        })
+        .catch(error => {
+            console.error("Erro ao buscar funcionários:", error);
         });
-    });
 });
