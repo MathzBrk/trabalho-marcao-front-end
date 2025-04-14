@@ -12,14 +12,11 @@ document.addEventListener("DOMContentLoaded", function () {
       const statusTexto = registro.status ? ` (${registro.status})` : "";
       const nomeVacina = registro.nomeVacina + statusTexto;
   
-      const localAplicacao = registro.status === "Agendada"
-        ? (registro.localAplicacao ? registro.localAplicacao : "—")
-        : "";
+
   
       tr.appendChild(criarCelula(nomeVacina));
       tr.appendChild(criarCelula(registro.nomePaciente));
       tr.appendChild(criarCelula(registro.data));
-      tr.appendChild(criarCelula(localAplicacao));
   
       return tr;
     };
