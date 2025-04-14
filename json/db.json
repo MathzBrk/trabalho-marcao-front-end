@@ -1,13 +1,6 @@
 {
   "funcionarios": [
     {
-      "id": "1",
-      "nome": "TESTE",
-      "cpf": "123.456.789-00",
-      "cidade": "São Paulo",
-      "telefone": "(11) 91234-5678"
-    },
-    {
       "id": "2",
       "nome": "BRUNO OLIVEIRA",
       "cpf": "987.654.321-00",
@@ -40,12 +33,18 @@
     {
       "id": "1394",
       "vacina": "fa33",
-      "funcionarioId": "1",
+      "funcionarioId": null,
       "dataAgendada": "2025-04-17"
     },
     {
       "id": "e65d",
       "vacina": "cc81",
+      "funcionarioId": "2",
+      "dataAgendada": "2025-04-18"
+    },
+    {
+      "id": "2462",
+      "vacina": "259e",
       "funcionarioId": "2",
       "dataAgendada": "2025-04-18"
     }
@@ -79,6 +78,16 @@
       "intervaloDoses": 2,
       "efeitosColaterais": "Dor de cabeça",
       "recomendacoes": "Olha abula"
+    },
+    {
+      "id": "259e",
+      "nome": "VASSINA",
+      "tipo": "Vacina de vetor viral",
+      "fabricante": "MEDICU",
+      "numeroDoses": 2,
+      "intervaloDoses": 7,
+      "efeitosColaterais": "TODOS",
+      "recomendacoes": "NENHUMA"
     }
   ]
 }
