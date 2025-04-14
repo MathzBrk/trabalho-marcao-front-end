@@ -14,7 +14,6 @@ document.addEventListener("DOMContentLoaded", function () {
               <td>${registro.nomeVacina}${registro.status ? ` (${registro.status})` : ''}</td>
               <td>${registro.nomePaciente}</td>
               <td>${registro.data}</td> <!-- Usar o campo 'data' corretamente -->
-              <td>${registro.localAplicacao !== undefined && registro.localAplicacao !== null ? registro.localAplicacao : '—'}</td> <!-- Verifica undefined ou null -->
           `;
           tbody.appendChild(tr);
       });
