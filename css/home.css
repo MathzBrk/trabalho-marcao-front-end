@@ -35,6 +35,13 @@ body {
     filter: brightness(1.2);
 }
 
+.sidebar a,
+.sidebar .nav-link,
+.sidebar .dropdown-toggle {
+  color: #ffffff !important;
+}
+
+
 body {
     overflow-x: hidden; /* Impede a barra de rolagem horizontal */
 }
