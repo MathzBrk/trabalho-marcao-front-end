@@ -30,64 +30,10 @@
     }
   ],
   "agendamentos": [
-    {
-      "id": "1394",
-      "vacina": "fa33",
-      "funcionarioId": null,
-      "dataAgendada": "2025-04-17"
-    },
-    {
-      "id": "e65d",
-      "vacina": "cc81",
-      "funcionarioId": "2",
-      "dataAgendada": "2025-04-18"
-    },
-    {
-      "id": "2462",
-      "vacina": "259e",
-      "funcionarioId": "2",
-      "dataAgendada": "2025-04-18"
-    }
+
   ],
   "registros": [
-    {
-      "id": "0e5f",
-      "vacina": "Gripe",
-      "funcionarioVacinadoId": "3",
-      "funcionarioResponsavelId": "3",
-      "dataRegistro": "2025-04-13"
-    }
   ],
   "vacinas": [
-    {
-      "id": "2c8a",
-      "nome": "TESTE2",
-      "tipo": "Vacina de RNA mensageiro",
-      "fabricante": "teste2",
-      "numeroDoses": 2,
-      "intervaloDoses": 2,
-      "efeitosColaterais": "teste2",
-      "recomendacoes": "teste2"
-    },
-    {
-      "id": "fa33",
-      "nome": "PFIZER",
-      "tipo": "Vacina de vírus inativado",
-      "fabricante": "Brasil",
-      "numeroDoses": 2,
-      "intervaloDoses": 2,
-      "efeitosColaterais": "Dor de cabeça",
-      "recomendacoes": "Olha abula"
-    },
-    {
-      "id": "259e",
-      "nome": "VASSINA",
-      "tipo": "Vacina de vetor viral",
-      "fabricante": "MEDICU",
-      "numeroDoses": 2,
-      "intervaloDoses": 7,
-      "efeitosColaterais": "TODOS",
-      "recomendacoes": "NENHUMA"
-    }
   ]
 }
