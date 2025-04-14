@@ -52,7 +52,6 @@ function carregarVacinas() {
         tabelaVacinas.innerHTML += row;
       });
 
-      // mostrar vacinas agendadas
       agendamentosFiltrados.forEach(agendamento => {
         const funcionario = funcionarios.find(f => f.id == agendamento.funcionarioId);
         const nomeFuncionario = funcionario ? funcionario.nome : "Desconhecido";

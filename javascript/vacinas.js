@@ -54,45 +54,46 @@ function cadastrarVacina() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+function carregarVacinas() {
+
   const tabelaVacinas = document.getElementById('tabela-vacinas');
 
-  function carregarVacinas() {
-    fetch('http://localhost:3000/vacinas')
-      .then(response => response.json())
-      .then(vacinas => {
-        tabelaVacinas.innerHTML = ''; 
+  fetch('http://localhost:3000/vacinas')
+    .then(response => response.json())
+    .then(vacinas => {
+      tabelaVacinas.innerHTML = ''; 
 
-        vacinas.forEach(vacina => {
-          const tr = document.createElement('tr');
-        
-          tr.innerHTML = `
-            <td>${vacina.nome}</td>
-            <td>${vacina.tipo}</td>
-            <td>${vacina.fabricante}</td>
-            <td>${vacina.numeroDoses}</td>
-            <td>${vacina.intervaloDoses}</td>
-            <td>${vacina.efeitosColaterais}</td>
-            <td>${vacina.recomendacoes}</td>
-            <td class="text-center">
-              <button class="btn btn-warning btn-sm me-2" onclick="editarVacina('${vacina.id}')">
-                <i class="bi bi-pencil"></i>
-              </button>
-              <button class="btn btn-danger btn-sm" onclick="excluirVacina('${vacina.id}')">
-                <i class="bi bi-trash"></i>
-              </button>
-            </td>
-          `;
-        
-          tabelaVacinas.appendChild(tr);
-        });
-      })
-      .catch(error => {
-        console.error('Erro ao carregar vacinas:', error);
-        tabelaVacinas.innerHTML = '<tr><td colspan="2" class="text-center text-danger">Erro ao carregar dados.</td></tr>';
+      vacinas.forEach(vacina => {
+        const tr = document.createElement('tr');
+      
+        tr.innerHTML = `
+          <td>${vacina.nome}</td>
+          <td>${vacina.tipo}</td>
+          <td>${vacina.fabricante}</td>
+          <td>${vacina.numeroDoses}</td>
+          <td>${vacina.intervaloDoses}</td>
+          <td>${vacina.efeitosColaterais}</td>
+          <td>${vacina.recomendacoes}</td>
+          <td class="text-center">
+            <button class="btn btn-warning btn-sm me-2" onclick="editarVacina('${vacina.id}')">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btn btn-danger btn-sm" onclick="excluirVacina('${vacina.id}')">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        `;
+      
+        tabelaVacinas.appendChild(tr);
       });
-  }
+    })
+    .catch(error => {
+      console.error('Erro ao carregar vacinas:', error);
+      tabelaVacinas.innerHTML = '<tr><td colspan="2" class="text-center text-danger">Erro ao carregar dados.</td></tr>';
+    });
+}
 
+document.addEventListener('DOMContentLoaded', () => {
   carregarVacinas();
 });
 
@@ -114,4 +115,58 @@ function excluirVacina(id) {
         alert('Erro ao excluir vacina.');
       });
   }
+}
+
+const searchInput = document.getElementById("searchVacinaInput");
+
+if (searchInput) {
+  searchInput.addEventListener("input", (event) => {
+    const termoBusca = event.target.value.trim().toLowerCase();
+
+    fetch("http://localhost:3000/vacinas")
+      .then(response => response.json())
+      .then(data => {
+        const tabelaVacinas = document.getElementById('tabela-vacinas');
+        tabelaVacinas.innerHTML = '';
+
+        const vacinasFiltradas = termoBusca === ""
+          ? data
+          : data.filter(vacina => vacina.nome.toLowerCase().includes(termoBusca));
+
+        vacinasFiltradas.forEach(vacina => {
+          const tr = document.createElement('tr');
+
+          tr.innerHTML = `
+            <td>${vacina.nome}</td>
+            <td>${vacina.tipo}</td>
+            <td>${vacina.fabricante}</td>
+            <td>${vacina.numeroDoses}</td>
+            <td>${vacina.intervaloDoses}</td>
+            <td>${vacina.efeitosColaterais}</td>
+            <td>${vacina.recomendacoes}</td>
+            <td class="text-center">
+              <button class="btn btn-warning btn-sm me-2" onclick="editarVacina('${vacina.id}')">
+                <i class="bi bi-pencil"></i>
+              </button>
+              <button class="btn btn-danger btn-sm" onclick="excluirVacina('${vacina.id}')">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          `;
+
+          tabelaVacinas.appendChild(tr);
+        });
+
+        if (vacinasFiltradas.length === 0) {
+          tabelaVacinas.innerHTML = `
+            <tr>
+              <td colspan="8" class="text-center text-muted">Nenhuma vacina encontrada.</td>
+            </tr>
+          `;
+        }
+      })
+      .catch(error => {
+        console.error("Erro ao buscar vacinas para filtro:", error);
+      });
+  });
 }
