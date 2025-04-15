@@ -29,11 +29,18 @@
       "telefone": "(71) 98765-4321"
     }
   ],
-  "agendamentos": [
-
-  ],
-  "registros": [
-  ],
+  "agendamentos": [],
+  "registros": [],
   "vacinas": [
+    {
+      "id": "1632",
+      "nome": "COMIRNATY 2",
+      "tipo": "Vacina de vírus inativado",
+      "fabricante": "Teste",
+      "numeroDoses": 2,
+      "intervaloDoses": 7,
+      "efeitosColaterais": "Dor de cabeça",
+      "recomendacoes": ""
+    }
   ]
 }

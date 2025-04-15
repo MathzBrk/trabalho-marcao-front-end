@@ -3,7 +3,7 @@ window.onload = () => {
 
   if (form) {
     form.addEventListener("submit", (event) => {
-      event.preventDefault(); 
+      event.preventDefault();
       cadastrarVacina();
     });
   }
@@ -41,17 +41,17 @@ function cadastrarVacina() {
     },
     body: JSON.stringify(vacina)
   })
-  .then(response => {
-    if (!response.ok) {
-      throw new Error("Erro ao cadastrar vacina.");
-    }
-    alert("Vacina cadastrada com sucesso!");
-    document.getElementById("form-vacina").reset();
-  })
-  .catch(error => {
-    console.error("Erro ao cadastrar vacina:", error);
-    alert("Erro ao cadastrar vacina.");
-  });
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Erro ao cadastrar vacina.");
+      }
+      alert("Vacina cadastrada com sucesso!");
+      document.getElementById("form-vacina").reset();
+    })
+    .catch(error => {
+      console.error("Erro ao cadastrar vacina:", error);
+      alert("Erro ao cadastrar vacina.");
+    });
 }
 
 function carregarVacinas() {
@@ -61,11 +61,11 @@ function carregarVacinas() {
   fetch('http://localhost:3000/vacinas')
     .then(response => response.json())
     .then(vacinas => {
-      tabelaVacinas.innerHTML = ''; 
+      tabelaVacinas.innerHTML = '';
 
       vacinas.forEach(vacina => {
         const tr = document.createElement('tr');
-      
+
         tr.innerHTML = `
           <td>${vacina.nome}</td>
           <td>${vacina.tipo}</td>
@@ -83,7 +83,7 @@ function carregarVacinas() {
             </button>
           </td>
         `;
-      
+
         tabelaVacinas.appendChild(tr);
       });
     })
@@ -98,7 +98,61 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function editarVacina(id) {
-  window.location.href = `editar-vacina.html?id=${id}`;
+  fetch(`http://localhost:3000/vacinas/${id}`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Vacina não encontrada.");
+      }
+      return response.json();
+    })
+    .then(vacina => {
+      const nome = prompt("Digite o nome da vacina:", vacina.nome);
+      const tipo = prompt("Digite o tipo da vacina:", vacina.tipo);
+      const fabricante = prompt("Digite o fabricante:", vacina.fabricante);
+      const numeroDoses = prompt("Digite o número de doses:", vacina.numeroDoses);
+      const intervaloDoses = prompt("Digite o intervalo entre doses (em dias):", vacina.intervaloDoses);
+      const efeitosColaterais = prompt("Digite os efeitos colaterais:", vacina.efeitosColaterais || "");
+      const recomendacoes = prompt("Digite as recomendações:", vacina.recomendacoes || "");
+
+      if (!nome || !tipo || !fabricante || !numeroDoses || !intervaloDoses) {
+        alert("Todos os campos obrigatórios devem ser preenchidos.");
+        return;
+      }
+
+      const dadosAtualizados = {
+        ...vacina,
+        nome: nome.toUpperCase(),
+        tipo,
+        fabricante,
+        numeroDoses: parseInt(numeroDoses),
+        intervaloDoses: parseInt(intervaloDoses),
+        efeitosColaterais,
+        recomendacoes
+      };
+
+      fetch(`http://localhost:3000/vacinas/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(dadosAtualizados)
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Erro ao atualizar a vacina.");
+          }
+          alert("Vacina atualizada com sucesso!");
+          carregarVacinas();
+        })
+        .catch(error => {
+          console.error("Erro ao atualizar vacina:", error);
+          alert("Erro ao atualizar vacina.");
+        });
+    })
+    .catch(error => {
+      console.error("Erro ao buscar vacina:", error);
+      alert("Erro ao buscar dados da vacina.");
+    });
 }
 
 function excluirVacina(id) {
@@ -108,7 +162,7 @@ function excluirVacina(id) {
     })
       .then(() => {
         alert('Vacina excluída com sucesso!');
-        location.reload(); 
+        location.reload();
       })
       .catch(error => {
         console.error('Erro ao excluir vacina:', error);
