@@ -63,6 +63,15 @@ function carregarVacinas() {
     .then(vacinas => {
       tabelaVacinas.innerHTML = '';
 
+      if (vacinas.length === 0) {
+        tabelaVacinas.innerHTML = `
+          <tr>
+            <td colspan="8" class="text-center text-muted">Nenhuma vacina registrada.</td>
+          </tr>
+        `;
+        return;
+      }
+
       vacinas.forEach(vacina => {
         const tr = document.createElement('tr');
 
@@ -78,7 +87,7 @@ function carregarVacinas() {
             <button class="btn btn-warning btn-sm me-2" onclick="editarVacina('${vacina.id}')">
               <i class="bi bi-pencil"></i>
             </button>
-            <button class="btn btn-danger btn-sm" onclick="excluirVacina('${vacina.id}')">
+            <button class="btn btn-danger btn-sm me-2" onclick="excluirVacina('${vacina.id}')">
               <i class="bi bi-trash"></i>
             </button>
           </td>
